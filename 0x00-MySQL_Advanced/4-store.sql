@@ -1,7 +1,7 @@
 -- Order store procedure
 
 
-CREATE TRIGGER update_quantity AFTER INSERT ON orders
+CREATE TRIGGER decrement AFTER INSERT ON orders
 FOR EACH ROW
 UPDATE items
 SET quantity = quantity - 1
