@@ -1,8 +1,10 @@
 -- Content: MySQL function to divide two numbers safely
 
+DELIMITER //
 
+DROP FUNCTION IF EXISTS SafeDiv;
 CREATE FUNCTION SafeDiv(a INT, b INT)
-RETURNS INT
+RETURNS FLOAT
 DETERMINISTIC
 BEGIN
     IF b = 0 THEN
@@ -10,4 +12,6 @@ BEGIN
     ELSE
         RETURN a / b;
     END IF;
-END
+END //
+
+DELIMITER;
