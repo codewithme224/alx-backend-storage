@@ -1,10 +1,15 @@
 -- Script to create the procedure ComputeAverageWeightedScoreForUsers in your MySQL database
 
 
-CREATE PROCEDURE ComputeAverageWeightedScoreForUsers ()
+DELIMITER $$
+DROP PROCEDURE IF EXISTS ComputeAverageWeightedScoreForUsers;
+CREATE PROCEDURE ComputeAverageWeightedScoreForUsers()
 BEGIN
-    INSERT INTO average_weighted_score (user_id, score)
-    SELECT id, AVG(score * weight)
+    UPDATE users set average_score = (SELECT
+    SUM(corrections.score * projects.weight) / SUM(projects.weight)
     FROM corrections
-    GROUP BY user_id;
-END
+    INNER JOIN projects
+    ON projects.id = corrections.project_id
+    where corrections.user_id = users.id);
+END $$
+DELIMITER ;
