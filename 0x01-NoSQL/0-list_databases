@@ -4,13 +4,17 @@ const MongoClient = require('mongodb').MongoClient;
 
 const url = 'mongodb://localhost:27017';
 
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function(err, client) {
   if (err) throw err;
-  var dbo = db.db("admin");
-  dbo.admin().listDatabases(function(err, dbs) {
+  
+  const adminDb = client.db("admin");
+  
+  adminDb.admin().listDatabases(function(err, result) {
     if (err) throw err;
+    
     console.log("Databases:");
-    console.log(dbs);
-    db.close();
+    console.log(result.databases);
+    
+    client.close();
   });
 });
