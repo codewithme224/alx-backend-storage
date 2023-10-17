@@ -1,0 +1,16 @@
+// A script that lists all databases in MongoDB.
+
+const MongoClient = require('mongodb').MongoClient;
+
+const url = 'mongodb://localhost:27017';
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("admin");
+  dbo.admin().listDatabases(function(err, dbs) {
+    if (err) throw err;
+    console.log("Databases:");
+    console.log(dbs);
+    db.close();
+  });
+});
