@@ -1,0 +1,3 @@
+// Script that counts
+
+db.school.count()
